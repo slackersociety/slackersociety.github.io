@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Slacker Society</title>
+<meta name="description" content="Slacker Society was a small pixel town on the internet. It is resting for now.">
+<meta name="robots" content="index, follow">
+<meta property="og:title" content="Slacker Society">
+<meta property="og:description" content="A small pixel town on the internet. Resting for now.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAALUlEQVR4nGNgGAWDDPwnACjSjNcQbIqwsXEaQqztRBlAyEUEvUEojPAG5AgFAPq61yl1KMFzAAAAAElFTkSuQmCC">
+<style>
+  /* Slacker Society canonical eight-colour palette. */
+  :root {
+    --white:  #FFFFFF;
+    --mist:   #D5DEE3;
+    --blue:   #1B8CCC;
+    --slate:  #2C5670;
+    --ink:    #2B2B2B;
+    --moss:   #5C7A6B;
+    --bark:   #8A7355;
+    --sand:   #C8A87A;
+
+    --bg:        var(--mist);
+    --surface:   var(--white);
+    --text:      var(--ink);
+    --muted:     var(--slate);
+    --accent:    var(--blue);
+    --on-accent: var(--white);
+    --line:      rgba(44, 86, 112, 0.22);
+    --shadow:    rgba(43, 43, 43, 0.10);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg:        #1a2129;
+      --surface:   #222b34;
+      --text:      var(--mist);
+      --muted:     #8fa5b3;
+      --accent:    #4fb0e8;
+      --on-accent: #10171d;
+      --line:      rgba(213, 222, 227, 0.16);
+      --shadow:    rgba(0, 0, 0, 0.40);
+    }
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  main {
+    width: 100%;
+    max-width: 34rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    box-shadow: 0 1px 2px var(--shadow), 0 12px 32px var(--shadow);
+    padding: clamp(1.75rem, 6vw, 3rem);
+  }
+
+  /* Row of the four canonical 16x16 icons, drawn as masks so they take
+     the theme colour instead of staying white. */
+  .icons {
+    display: flex;
+    gap: 0.85rem;
+    margin-bottom: 1.75rem;
+  }
+  .icons i {
+    width: 20px;
+    height: 20px;
+    background-color: var(--accent);
+    -webkit-mask-repeat: no-repeat;
+            mask-repeat: no-repeat;
+    -webkit-mask-size: contain;
+            mask-size: contain;
+    opacity: 0.9;
+  }
+  .icons i:nth-child(2) { background-color: var(--moss); }
+  .icons i:nth-child(3) { background-color: var(--bark); }
+  .icons i:nth-child(4) { background-color: var(--sand); }
+
+  .i-controller {
+    -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAALUlEQVR4nGNgGAWDDPwnACjSjNcQbIqwsXEaQqztRBlAyEUEvUEojPAG5AgFAPq61yl1KMFzAAAAAElFTkSuQmCC");
+            mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAALUlEQVR4nGNgGAWDDPwnACjSjNcQbIqwsXEaQqztRBlAyEUEvUEojPAG5AgFAPq61yl1KMFzAAAAAElFTkSuQmCC");
+  }
+  .i-atom {
+    -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAL0lEQVR4nGNgGAVYwX8ooFgjSQbh00jQEJgCfC4g2hBkjciAaG+QHQb4DBoFNAYAD05vkfwj2wQAAAAASUVORK5CYII=");
+            mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAL0lEQVR4nGNgGAVYwX8ooFgjSQbh00jQEJgCfC4g2hBkjciAaG+QHQb4DBoFNAYAD05vkfwj2wQAAAAASUVORK5CYII=");
+  }
+  .i-coffee {
+    -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAANklEQVR4nGNgoDb4////f2SaIkMGzgUDA/4TAEQZQEgOr0GEDCDoEmJcQBCQ7X98hpCkeYQCAFGHf4E1Q9UPAAAAAElFTkSuQmCC");
+            mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAANklEQVR4nGNgoDb4////f2SaIkMGzgUDA/4TAEQZQEgOr0GEDCDoEmJcQBCQ7X98hpCkeYQCAFGHf4E1Q9UPAAAAAElFTkSuQmCC");
+  }
+  .i-book {
+    -webkit-mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVR4nGNgGHLg/////3FKIANc4lgNIKQJXWwQGkBKGOAMXUKuIaiRagaMggEAANH10y2awH79AAAAAElFTkSuQmCC");
+            mask-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAMElEQVR4nGNgGHLg/////3FKIANc4lgNIKQJXWwQGkBKGOAMXUKuIaiRagaMggEAANH10y2awH79AAAAAElFTkSuQmCC");
+  }
+
+  h1 {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.6rem, 6vw, 2.1rem);
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    font-weight: 650;
+  }
+
+  .status {
+    margin: 0 0 1.6rem;
+    font-size: 0.83rem;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 600;
+  }
+
+  p { margin: 0 0 1.1rem; }
+  p.lede { font-size: 1.06rem; }
+
+  .muted { color: var(--muted); }
+
+  hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    margin: 1.9rem 0 1.6rem;
+  }
+
+  h2 {
+    margin: 0 0 0.6rem;
+    font-size: 1rem;
+    font-weight: 650;
+    letter-spacing: -0.005em;
+  }
+
+  /* Primary call to action: the two social links. */
+  .social {
+    display: flex;
+    gap: 0.7rem;
+    margin-top: 1.3rem;
+  }
+
+  .social a {
+    flex: 1 1 0;
+    min-width: 0;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    padding: 0.8rem 1rem;
+    background: var(--accent);
+    color: var(--on-accent);
+    border: 1px solid transparent;
+    border-radius: 9px;
+    font-size: 0.97rem;
+    font-weight: 600;
+    letter-spacing: -0.005em;
+    text-decoration: none;
+    transition: filter 0.15s ease, transform 0.05s ease;
+  }
+  .social a:hover { filter: brightness(1.08); }
+  .social a:active { transform: translateY(1px); }
+  .social a:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  .social a span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .social svg {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 auto;
+    fill: currentColor;
+  }
+
+  a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+
+  footer {
+    margin-top: 2.1rem;
+    padding-top: 1.3rem;
+    border-top: 1px solid var(--line);
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  @media (max-width: 30rem) {
+    .social { flex-direction: column; }
+  }
+</style>
+</head>
+<body>
+<main>
+
+  <div class="icons" aria-hidden="true">
+    <i class="i-controller"></i>
+    <i class="i-atom"></i>
+    <i class="i-coffee"></i>
+    <i class="i-book"></i>
+  </div>
+
+  <h1>Slacker Society</h1>
+  <p class="status">Resting</p>
+
+  <p class="lede">
+    Slacker Society was a small pixel town on the internet, built for a handful
+    of friends and nobody else.
+  </p>
+
+  <p>
+    You picked a name and a four-letter PIN, and you got an avatar that stayed
+    where you left it. You could wander a hand-drawn overworld: a central plaza,
+    a snowy mountain to the north, desert to the west, forest to the east, and a
+    long bridge south to a tropical island. You could leave a speech bubble
+    hanging over your head for whoever showed up next.
+  </p>
+
+  <p>
+    Things appeared while you were away. Slack drops and rare findings turned up
+    around the map on their own schedule, so there was usually a reason to check
+    in. The Slackerboard kept the score. The whole thing was invite only, and
+    that was the point.
+  </p>
+
+  <p class="muted">
+    The town is quiet now and the server is switched off. Everything that
+    happened there is saved and nothing was thrown away.
+  </p>
+
+  <hr>
+
+  <h2>If it wakes up, you will hear about it here</h2>
+  <p class="muted" style="margin-bottom:0">
+    News about the town turning back on turns up in these two places first.
+  </p>
+
+  <nav class="social">
+    <a href="https://x.com/slackersociety" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <span>@slackersociety</span>
+    </a>
+    <a href="https://instagram.com/slackergram" target="_blank" rel="noopener noreferrer">
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      <span>@slackergram</span>
+    </a>
+  </nav>
+
+  <footer>
+    Slacker Society, 2026. Archived, not deleted.
+  </footer>
+
+</main>
+</body>
+</html>
